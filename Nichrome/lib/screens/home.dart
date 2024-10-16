@@ -1,402 +1,476 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-
+import 'package:nichrome/screens/categories.dart';
 import '../common/clip.dart';
 import '../common/search.dart';
+import '../common/slider_screen.dart';
 
 class home extends StatefulWidget {
   const home({Key? key}) : super(key: key);
 
   @override
   State<home> createState() => _homeState();
-
 }
 
 class _homeState extends State<home> {
+  @override
 
   @override
-  @override
   Widget build(BuildContext context) {
-    double screenwidth = MediaQuery.of(context).size.width;
-    return DefaultTabController(
-      length: 3, // Set the number of tabs
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        body: CustomScrollView(
-          slivers: [
-            SliverAppBar(
-              backgroundColor: Colors.black,
-              pinned: true,
-              flexibleSpace: FlexibleSpaceBar(
-                titlePadding: EdgeInsets.only(top: 30,left:20),
-                title: Row(
-                  children: [
-                    Container(
-                      height: 200,
-                      width: 200,
-                      child: Image.asset("assets/logo/logo.png"),
-                    ),
-                  ],
-                ),
-              ),
+    double screenwidth = MediaQuery
+        .of(context)
+        .size
+        .width;
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Color(0xFFFFF3E0),
+        title: Row(
+          children: [
+            Container(
+              height: 250,
+              width: 200,
+              child: Image.asset("assets/logo/logo.png"),
             ),
-            SliverToBoxAdapter(
-              child: ClipPath(
-                clipper: CustomEdges(),
-                child: Container(
-                  color: Colors.black,
-                  padding: const EdgeInsets.all(0),
-                  child: Container(
-                    height: 300,
-                    // width: double.infinity,
-                    child: Column(
-                      children: [
-                        const SearchContainer(
-                          text: "Search",
-                          showbackground: true,
-                          showborder: true,
-                          icon: Icons.search,
-                        ),
-                        SizedBox(height: 20),
-                        Container(
-                          width: screenwidth - 20,
-                          height: 150,
-                          child: ElevatedButton(
-                            onPressed: () {},
-                            child: Icon(
-                              Icons.qr_code_scanner,
-                              size: 60,
-                              color: Colors.black,
-                            ),
-                            style: ElevatedButton.styleFrom(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20),
-                                ), backgroundColor: Colors.white
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+          ],
+        ),
+      ),
+      backgroundColor: Color(0xFFFFF8F8),
+      body: DefaultTabController(
+        length: 3, // Number of tabs
+        child: Column(
+          children: [
+            // ClipPath section
+            ClipPath(
+              clipper: CustomEdges(),
+              child: Container(
+                color: Color(0xFFFFF3E0),
+                padding: const EdgeInsets.all(0),
+                child: SizedBox(
+                  height: 350,
+                  width: 400,
+                  child: Column(
+                    children: [
+                      const SearchContainer(
+                        text: "Search",
+                        showbackground: true,
+                        showborder: true,
+                        icon: Icons.search,
+                      ),
+                      SizedBox(height: 20),
+                      // Container(
+                      //   width: MediaQuery.of(context).size.width - 20,
+                      //   height: 150,
+                      //   child: ElevatedButton(
+                      //     onPressed: () {},
+                      //     child: Icon(
+                      //       Icons.qr_code_scanner,
+                      //       size: 60,
+                      //       color: Colors.black,
+                      //     ),
+                      //     style: ElevatedButton.styleFrom(
+                      //       shape: RoundedRectangleBorder(
+                      //         borderRadius: BorderRadius.circular(20),
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
+                      SliderScreen()
+                    ],
                   ),
                 ),
               ),
             ),
-            SliverPersistentHeader(
-              delegate: _SliverAppBarDelegate(
-                TabBar(
-                  labelColor: Colors.black,
-                  indicatorColor: Colors.black,
 
-                  tabs: [
-                    Tab(text: "Food"),
-                    Tab(text: "Pharma"),
-                    Tab(text: "Non Food"),
-                  ],
-                ),
-              ),
-
-              pinned: true,
+            // TabBar Section
+            TabBar(
+              labelColor: Colors.black,
+              unselectedLabelColor: Colors.grey,
+              indicatorColor: Colors.black,
+              tabs: [
+                Tab(text: "Food"),
+                Tab(text: "Pharma"),
+                Tab(text: "Non-Food"),
+              ],
             ),
-            SliverFillRemaining(
-              child: Container(
-                // color: Colors.yellow,
-                child: TabBarView(
-                  children: [
-                    SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          SizedBox(height: 20),
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Container(
-                                height: 200,width: 150,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20)
-                                ),
-                                child: ClipRRect(borderRadius: BorderRadius.circular(20),child: Image(image: AssetImage('assets/food/Grains.jpg'), fit: BoxFit.cover,)),
-                              ),
-                              Container(
-                                height: 200,width: 150,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20)
-                                ),
-                                child: ClipRRect(borderRadius: BorderRadius.circular(20),child: Image(image: AssetImage('assets/food/Milk.jpg'), fit: BoxFit.cover,)),
-                              ),
 
-                            ],
-                          ),
-                          SizedBox(height: 20,),
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Container(
-                                height: 200,width: 150,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20)
+            // TabBarView with scrollable content
+            Expanded(
+              child: TabBarView(
+                children: [
+                  // Tab 1 content
+                  SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        SizedBox(height: 20),
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Column(
+                              children: [
+                                GestureDetector(
+                                  onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => category()));},
+                                  child: Container(
+                                    height: 200,width: 150,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20)
+                                    ),
+                                    child: ClipRRect(borderRadius: BorderRadius.circular(20),child: Image(image: AssetImage('assets/food/Grains.jpg'), fit: BoxFit.cover,)),
+                                  ),
                                 ),
-                                child: ClipRRect(borderRadius: BorderRadius.circular(20),child: Image(image: AssetImage('assets/food/Namkeen.jpg'), fit: BoxFit.cover,)),
-                              ),
-                              Container(
-                                height: 200,width: 150,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20)
+                                Text("Grains")
+                              ],
+                            ),
+                            Column(
+                              children: [
+                                GestureDetector(
+                                  onTap: (){},
+                                  child: Container(
+                                    height: 200,width: 150,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20)
+                                    ),
+                                    child: ClipRRect(borderRadius: BorderRadius.circular(20),child: Image(image: AssetImage('assets/food/Milk.jpg'), fit: BoxFit.cover,)),
+                                  ),
                                 ),
-                                child: ClipRRect(borderRadius: BorderRadius.circular(20),child: Image(image: AssetImage('assets/food/Oil.jpg'), fit: BoxFit.cover,)),
-                              ),
+                                Text("Milk")
+                              ],
+                            ),
 
-                            ],
-                          ),
-                          SizedBox(height: 20,),
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Container(
-                                height: 200,width: 150,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20)
+                          ],
+                        ),
+                        SizedBox(height: 20,),
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Column(
+                              children: [
+                                GestureDetector(
+                                  onTap: (){},
+                                  child: Container(
+                                    height: 200,width: 150,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20)
+                                    ),
+                                    child: ClipRRect(borderRadius: BorderRadius.circular(20),child: Image(image: AssetImage('assets/food/Namkeen.jpg'), fit: BoxFit.cover,)),
+                                  ),
                                 ),
-                                child: ClipRRect(borderRadius: BorderRadius.circular(20),child: Image(image: AssetImage('assets/food/Powders.jpg'), fit: BoxFit.cover,)),
-                              ),
-                              Container(
-                                height: 200,width: 150,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20)
+                                Text("Namkeen")
+                              ],
+                            ),
+                            Column(
+                              children: [
+                                GestureDetector(
+                                  onTap: (){},
+                                  child: Container(
+                                    height: 200,width: 150,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20)
+                                    ),
+                                    child: ClipRRect(borderRadius: BorderRadius.circular(20),child: Image(image: AssetImage('assets/food/Oil.jpg'), fit: BoxFit.cover,)),
+                                  ),
                                 ),
-                                child: ClipRRect(borderRadius: BorderRadius.circular(20),child: Image(image: AssetImage('assets/food/Ready_to_eat.jpg'), fit: BoxFit.cover,)),
-                              ),
+                                Text("Oil")
+                              ],
+                            ),
 
-                            ],
-                          ),
+                          ],
+                        ),
+                        SizedBox(height: 20,),
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Column(
+                              children: [
+                                GestureDetector(
+                                  onTap: (){},
+                                  child: Container(
+                                    height: 200,width: 150,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20)
+                                    ),
+                                    child: ClipRRect(borderRadius: BorderRadius.circular(20),child: Image(image: AssetImage('assets/food/Powders.jpg'), fit: BoxFit.cover,)),
+                                  ),
+                                ),
+                                Text("Powders")
+                              ],
+                            ),
+                            Column(
+                              children: [
+                                GestureDetector(
+                                  onTap: (){},
+                                  child: Container(
+                                    height: 200,width: 150,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20)
+                                    ),
+                                    child: ClipRRect(borderRadius: BorderRadius.circular(20),child: Image(image: AssetImage('assets/food/Ready_to_eat.jpg'), fit: BoxFit.cover,)),
+                                  ),
+                                ),
+                                Text("Ready to Eat")
+                              ],
+                            ),
 
-                        ],
-                      ),
+                          ],
+                        ),
+                        SizedBox(height: 20,)
+                      ],
                     ),
-                    SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          SizedBox(height: 20),
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Container(
-                                height: 200,width: 150,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20)
-                                ),
-                                child: ClipRRect(borderRadius: BorderRadius.circular(20),child: Image(image: AssetImage('assets/food/Grains.jpg'), fit: BoxFit.cover,)),
-                              ),
-                              Container(
-                                height: 200,width: 150,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20)
-                                ),
-                                child: ClipRRect(borderRadius: BorderRadius.circular(20),child: Image(image: AssetImage('assets/food/Milk.jpg'), fit: BoxFit.cover,)),
-                              ),
+                  ),
 
-                            ],
-                          ),
-                          SizedBox(height: 20,),
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Container(
-                                height: 200,width: 150,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20)
+                  // Tab 2 content
+                  SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        SizedBox(height: 20),
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Column(
+                              children: [
+                                GestureDetector(
+                                  onTap: (){},
+                                  child: Container(
+                                    height: 200,width: 150,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20)
+                                    ),
+                                    child: ClipRRect(borderRadius: BorderRadius.circular(20),child: Image(image: AssetImage('assets/pharma/capsules.jpg'), fit: BoxFit.cover,)),
+                                  ),
                                 ),
-                                child: ClipRRect(borderRadius: BorderRadius.circular(20),child: Image(image: AssetImage('assets/food/Namkeen.jpg'), fit: BoxFit.cover,)),
-                              ),
-                              Container(
-                                height: 200,width: 150,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20)
+                                Text("Capsules")
+                              ],
+                            ),
+                            Column(
+                              children: [
+                                GestureDetector(
+                                  onTap: (){},
+                                  child: Container(
+                                    height: 200,width: 150,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20)
+                                    ),
+                                    child: ClipRRect(borderRadius: BorderRadius.circular(20),child: Image(image: AssetImage('assets/pharma/Gel.jpg'), fit: BoxFit.cover,)),
+                                  ),
                                 ),
-                                child: ClipRRect(borderRadius: BorderRadius.circular(20),child: Image(image: AssetImage('assets/food/Oil.jpg'), fit: BoxFit.cover,)),
-                              ),
+                                Text("Gel")
+                              ],
+                            ),
 
-                            ],
-                          ),
-                          SizedBox(height: 20,),
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Container(
-                                height: 200,width: 150,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20)
+                          ],
+                        ),
+                        SizedBox(height: 20,),
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Column(
+                              children: [
+                                GestureDetector(
+                                  onTap: (){},
+                                  child: Container(
+                                    height: 200,width: 150,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20)
+                                    ),
+                                    child: ClipRRect(borderRadius: BorderRadius.circular(20),child: Image(image: AssetImage('assets/pharma/granules.jpg'), fit: BoxFit.cover,)),
+                                  ),
                                 ),
-                                child: ClipRRect(borderRadius: BorderRadius.circular(20),child: Image(image: AssetImage('assets/food/Powders.jpg'), fit: BoxFit.cover,)),
-                              ),
-                              Container(
-                                height: 200,width: 150,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20)
+                                Text("Granules")
+                              ],
+                            ),
+                            Column(
+                              children: [
+                                GestureDetector(
+                                  onTap: (){},
+                                  child: Container(
+                                    height: 200,width: 150,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20)
+                                    ),
+                                    child: ClipRRect(borderRadius: BorderRadius.circular(20),child: Image(image: AssetImage('assets/pharma/Injectibles.jpg'), fit: BoxFit.cover,)),
+                                  ),
                                 ),
-                                child: ClipRRect(borderRadius: BorderRadius.circular(20),child: Image(image: AssetImage('assets/food/Ready_to_eat.jpg'), fit: BoxFit.cover,)),
-                              ),
+                                Text("Injectibles")
+                              ],
+                            ),
 
-                            ],
-                          ),
+                          ],
+                        ),
+                        SizedBox(height: 20,),
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Column(
+                              children: [
+                                GestureDetector(
+                                  onTap: (){},
+                                  child: Container(
+                                    height: 200,width: 150,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20)
+                                    ),
+                                    child: ClipRRect(borderRadius: BorderRadius.circular(20),child: Image(image: AssetImage('assets/pharma/tablets.jpg'), fit: BoxFit.cover,)),
+                                  ),
+                                ),
+                                Text("Tablets")
+                              ],
+                            ),
+                            Column(
+                              children: [
+                                GestureDetector(
+                                  onTap: (){},
+                                  child: Container(
+                                    height: 200,width: 150,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20)
+                                    ),
+                                    child: ClipRRect(borderRadius: BorderRadius.circular(20),child: Image(image: AssetImage('assets/pharma/oral-liquid.jpg'), fit: BoxFit.cover,)),
+                                  ),
+                                ),
+                                Text("Oral Liquid")
+                              ],
+                            ),
 
-                        ],
-                      ),
+                          ],
+                        ),
+                        SizedBox(height: 20,)
+                      ],
                     ),
-                    SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          SizedBox(height: 20),
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Container(
-                                height: 200,width: 150,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20)
-                                ),
-                                child: ClipRRect(borderRadius: BorderRadius.circular(20),child: Image(image: AssetImage('assets/food/Grains.jpg'), fit: BoxFit.cover,)),
-                              ),
-                              Container(
-                                height: 200,width: 150,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20)
-                                ),
-                                child: ClipRRect(borderRadius: BorderRadius.circular(20),child: Image(image: AssetImage('assets/food/Milk.jpg'), fit: BoxFit.cover,)),
-                              ),
+                  ),
 
-                            ],
-                          ),
-                          SizedBox(height: 20,),
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Container(
-                                height: 200,width: 150,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20)
+                  // Tab 3 content
+                  SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        SizedBox(height: 20),
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Column(
+                              children: [
+                                GestureDetector(
+                                  onTap: (){},
+                                  child: Container(
+                                    height: 200,width: 150,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20)
+                                    ),
+                                    child: ClipRRect(borderRadius: BorderRadius.circular(20),child: Image(image: AssetImage('assets/non_food/Adhesives.jpg'), fit: BoxFit.cover,)),
+                                  ),
                                 ),
-                                child: ClipRRect(borderRadius: BorderRadius.circular(20),child: Image(image: AssetImage('assets/food/Grains.jpg'), fit: BoxFit.cover,)),
-                              ),
-                              Container(
-                                height: 200,width: 150,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20)
+                                Text("Adhesives")
+                              ],
+                            ),
+                            Column(
+                              children: [
+                                GestureDetector(
+                                  onTap: (){},
+                                  child: Container(
+                                    height: 200,width: 150,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20)
+                                    ),
+                                    child: ClipRRect(borderRadius: BorderRadius.circular(20),child: Image(image: AssetImage('assets/non_food/Fertilizer.jpg'), fit: BoxFit.cover,)),
+                                  ),
                                 ),
-                                child: ClipRRect(borderRadius: BorderRadius.circular(20),child: Image(image: AssetImage('assets/food/Milk.jpg'), fit: BoxFit.cover,)),
-                              ),
+                                Text("Fertilizers")
+                              ],
+                            ),
 
-                            ],
-                          ),
-                          SizedBox(height: 20,),
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Container(
-                                height: 200,width: 150,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20)
+                          ],
+                        ),
+                        SizedBox(height: 20,),
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Column(
+                              children: [
+                                GestureDetector(
+                                  onTap: (){},
+                                  child: Container(
+                                    height: 200,width: 150,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20)
+                                    ),
+                                    child: ClipRRect(borderRadius: BorderRadius.circular(20),child: Image(image: AssetImage('assets/non_food/Agrochemicals.jpg'), fit: BoxFit.cover,)),
+                                  ),
                                 ),
-                                child: ClipRRect(borderRadius: BorderRadius.circular(20),child: Image(image: AssetImage('assets/food/Grains.jpg'), fit: BoxFit.cover,)),
-                              ),
-                              Container(
-                                height: 200,width: 150,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20)
+                                Text("Agrochemical")
+                              ],
+                            ),
+                            Column(
+                              children: [
+                                GestureDetector(
+                                  onTap: (){},
+                                  child: Container(
+                                    height: 200,width: 150,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20)
+                                    ),
+                                    child: ClipRRect(borderRadius: BorderRadius.circular(20),child: Image(image: AssetImage('assets/non_food/Hardware.jpg'), fit: BoxFit.cover,)),
+                                  ),
                                 ),
-                                child: ClipRRect(borderRadius: BorderRadius.circular(20),child: Image(image: AssetImage('assets/food/Milk.jpg'), fit: BoxFit.cover,)),
-                              ),
+                                Text("Hardware")
+                              ],
+                            ),
 
-                            ],
-                          ),
-                          SizedBox(height: 20,),
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Container(
-                                height: 200,width: 150,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20)
+                          ],
+                        ),
+                        SizedBox(height: 20,),
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Column(
+                              children: [
+                                GestureDetector(
+                                  onTap: (){},
+                                  child: Container(
+                                    height: 200,width: 150,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20)
+                                    ),
+                                    child: ClipRRect(borderRadius: BorderRadius.circular(20),child: Image(image: AssetImage('assets/non_food/Lube-oil.jpg'), fit: BoxFit.cover,)),
+                                  ),
                                 ),
-                                child: ClipRRect(borderRadius: BorderRadius.circular(20),child: Image(image: AssetImage('assets/food/Namkeen.jpg'), fit: BoxFit.cover,)),
-                              ),
-                              Container(
-                                height: 200,width: 150,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20)
+                                Text("Lube Oil")
+                              ],
+                            ),
+                            Column(
+                              children: [
+                                GestureDetector(
+                                  onTap: (){},
+                                  child: Container(
+                                    height: 200,width: 150,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20)
+                                    ),
+                                    child: ClipRRect(borderRadius: BorderRadius.circular(20),child: Image(image: AssetImage('assets/non_food/Paint-powder.jpg'), fit: BoxFit.cover,)),
+                                  ),
                                 ),
-                                child: ClipRRect(borderRadius: BorderRadius.circular(20),child: Image(image: AssetImage('assets/food/Oil.jpg'), fit: BoxFit.cover,)),
-                              ),
+                                Text("Paint Powders")
+                              ],
+                            ),
 
-                            ],
-                          ),
-                          SizedBox(height: 20,),
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Container(
-                                height: 200,width: 150,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20)
-                                ),
-                                child: ClipRRect(borderRadius: BorderRadius.circular(20),child: Image(image: AssetImage('assets/food/Powders.jpg'), fit: BoxFit.cover,)),
-                              ),
-                              Container(
-                                height: 200,width: 150,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20)
-                                ),
-                                child: ClipRRect(borderRadius: BorderRadius.circular(20),child: Image(image: AssetImage('assets/food/Ready_to_eat.jpg'), fit: BoxFit.cover,)),
-                              ),
-
-                            ],
-                          ),
-
-                        ],
-                      ),
+                          ],
+                        ),
+                        SizedBox(height: 20,)
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            )
+            ),
           ],
         ),
       ),
     );
-  }
-}
 
-class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
-  final TabBar tabBar;
-
-  _SliverAppBarDelegate(this.tabBar);
-
-  @override
-  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return Material(
-      color: Colors.white,
-      child: tabBar,
-    );
-  }
-
-  @override
-  double get maxExtent => tabBar.preferredSize.height;
-
-  @override
-  double get minExtent => tabBar.preferredSize.height;
-
-  @override
-  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) {
-    return false;
   }
 }

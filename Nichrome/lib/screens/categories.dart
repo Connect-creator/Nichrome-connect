@@ -1,208 +1,175 @@
 import 'package:flutter/material.dart';
-
-import '../common/clip.dart';
-import '../common/search.dart';
+import 'package:nichrome/screens/subcategoriesdetails.dart';
+import 'cat_provider.dart';
 
 class category extends StatefulWidget {
-  const category({Key? key}) : super(key: key);
+  const category({super.key});
 
   @override
-  State<category> createState() => _scanState();
+  State<category> createState() => _category();
 }
 
-class _scanState extends State<category> {
+class _category extends State<category> {
+  int currentIndex = 0;
+  int preIndex = 0;
+  int postIndex = 1;
+
   @override
   Widget build(BuildContext context) {
-    double screenwidth = MediaQuery
-        .of(context)
-        .size
-        .width;
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.black,
-        title: Row(
-          children: [
-            Container(
-              height: 250,
-              width: 200,
-              child: Image.asset("assets/logo/logo.png"),
-            ),
-          ],
+        appBar: AppBar(
+          backgroundColor: Colors.lightBlueAccent,
+          title: Text("All Categories"),
         ),
-      ),
-      backgroundColor: Colors.white,
-      body: DefaultTabController(
-        length: 3, // Number of tabs
-        child: Column(
-          children: [
-            // ClipPath section
-            ClipPath(
-              clipper: CustomEdges(),
-              child: Container(
-                color: Colors.black,
-                padding: const EdgeInsets.all(0),
-                child: SizedBox(
-                  height: 300,
-                  width: 400,
-                  child: Column(
-                    children: [
-                      const SearchContainer(
-                        text: "Search",
-                        showbackground: true,
-                        showborder: true,
-                        icon: Icons.search,
-                      ),
-                      SizedBox(height: 20),
-                      Container(
-                        width: MediaQuery.of(context).size.width - 20,
-                        height: 150,
-                        child: ElevatedButton(
-                          onPressed: () {},
-                          child: Icon(
-                            Icons.qr_code_scanner,
-                            size: 60,
-                            color: Colors.black,
-                          ),
-                          style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
+        body: Row(children: [
+          Expanded(
+              flex: 1,
+              child: Container(color: Colors.grey[350],
+                  child: ListView.builder(
+                      itemCount: railCategories.length,
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                currentIndex = index;
+                                preIndex = currentIndex - 1;
+                                postIndex = currentIndex + 1;
+                              });
+                            },
+                            child: Stack(children: [
+                              Container(
+                                width: MediaQuery.of(context).size.width,
+                                padding: const EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                  color: currentIndex == index
+                                      ? Colors.white
+                                      : Colors.grey[350],
+                                  border: index != 0
+                                      ? const Border(
+                                    top: BorderSide(
+                                        color: Colors.white, width: 1),
+                                  )
+                                      : null,
+                                ),
+                                child: Column(
+                                  children: [
+                                    ClipRRect(
+                                        borderRadius: BorderRadius.circular(50),
+                                        child: Container(
+                                          width: 60,
+                                          height: 60,
+                                          decoration: const BoxDecoration(
+                                            shape: BoxShape.circle,
+                                          ),
+                                          child: Image.network(
+                                            railCategories[index].catImageUrl,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        )),
+                                    const SizedBox(height: 5),
+                                    Text(
+                                      railCategories[index].catName,
+                                      textAlign: TextAlign.center,
+                                      style: const TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ]));
+                      }))),
+          Expanded(
+            flex: 3,
+            child: SubCategories(currentIndex: currentIndex,),
+          )
+        ]
+        )
+    );
+  }
+}
+
+class SubCategories extends StatelessWidget {
+  final int currentIndex;
+  const SubCategories({
+    super.key,required this.currentIndex,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final List subcategoryItems = [
+      fashionItems,appliancesItems,mobilesItems
+    ];
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+      color: Colors.white70,
+      child: GridView.builder(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 3,
+            childAspectRatio: 4 / 6,
+            crossAxisSpacing: 15,
+            mainAxisSpacing: 8),
+        itemCount: subcategoryItems[currentIndex].length,
+        itemBuilder: (context, index) {
+          final subcategory = subcategoryItems[currentIndex][index];
+
+          return GestureDetector(
+            onTap: () {
+              // Navigate to the detail screen on subcategory tap
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => SubcategoryDetailsScreen(
+                    categoryName: railCategories[currentIndex].catName,
+                    subcategoryName: subcategoryItems[currentIndex][index].catName,
+                    subcategoryImageUrl: subcategoryItems[currentIndex][index].catImageUrl,
+                    subcategoryDescription: _getSubcategoryDescription(subcategoryItems[currentIndex][index].catName),
                   ),
                 ),
-              ),
-            ),
-
-            // TabBar Section
-            TabBar(
-              labelColor: Colors.black,
-              unselectedLabelColor: Colors.grey,
-              indicatorColor: Colors.black,
-              tabs: [
-                Tab(text: "Tab 1"),
-                Tab(text: "Tab 2"),
-                Tab(text: "Tab 3"),
+              );
+            },
+            child: Column(
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(50),
+                  child: Container(
+                    width: 60,
+                    height: 60,
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                    ),
+                    child: Image.network(
+                      subcategory.catImageUrl,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 5),
+                Text(
+                  subcategory.catName,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                      fontSize: 12, fontWeight: FontWeight.bold),
+                ),
               ],
             ),
-
-            // TabBarView with scrollable content
-            Expanded(
-              child: TabBarView(
-                children: [
-                  // Tab 1 content
-                  SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        SizedBox(height: 20),
-                        Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Container(
-                              height: 200,width: 150,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20)
-                              ),
-                              child: ClipRRect(borderRadius: BorderRadius.circular(20),child: Image(image: AssetImage('assets/food/Grains.jpg'), fit: BoxFit.cover,)),
-                            ),
-                            Container(
-                              height: 200,width: 150,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20)
-                              ),
-                              child: ClipRRect(borderRadius: BorderRadius.circular(20),child: Image(image: AssetImage('assets/food/Milk.jpg'), fit: BoxFit.cover,)),
-                            ),
-
-                          ],
-                        ),
-                        SizedBox(height: 20,),
-                        Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Container(
-                              height: 200,width: 150,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20)
-                              ),
-                              child: ClipRRect(borderRadius: BorderRadius.circular(20),child: Image(image: AssetImage('assets/food/Namkeen.jpg'), fit: BoxFit.cover,)),
-                            ),
-                            Container(
-                              height: 200,width: 150,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20)
-                              ),
-                              child: ClipRRect(borderRadius: BorderRadius.circular(20),child: Image(image: AssetImage('assets/food/Oil.jpg'), fit: BoxFit.cover,)),
-                            ),
-
-                          ],
-                        ),
-                        SizedBox(height: 20,),
-                        Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Container(
-                              height: 200,width: 150,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20)
-                              ),
-                              child: ClipRRect(borderRadius: BorderRadius.circular(20),child: Image(image: AssetImage('assets/food/Powders.jpg'), fit: BoxFit.cover,)),
-                            ),
-                            Container(
-                              height: 200,width: 150,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20)
-                              ),
-                              child: ClipRRect(borderRadius: BorderRadius.circular(20),child: Image(image: AssetImage('assets/food/Ready_to_eat.jpg'), fit: BoxFit.cover,)),
-                            ),
-
-                          ],
-                        ),
-                        SizedBox(height: 20,)
-                      ],
-                    ),
-                  ),
-
-                  // Tab 2 content
-                  SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        // Your scrollable content for Tab 2
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text("Content for Tab 2"),
-                        ),
-                        SizedBox(height: 20),
-                        // Add more widgets here
-                      ],
-                    ),
-                  ),
-
-                  // Tab 3 content
-                  SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        // Your scrollable content for Tab 3
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text("Content for Tab 3"),
-                        ),
-                        SizedBox(height: 20),
-                        // Add more widgets here
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
+          );
+        },
       ),
     );
+  }
+}
 
+String _getSubcategoryDescription(String subcategoryName) {
+  switch (subcategoryName) {
+    case 'DH Wing Servo Auger Filler':
+      return 'This machine is designed for high-speed auger filling applications. It is ideal for powders and granular products.';
+    case 'Wing Sickpack':
+      return 'Wing Sickpack is a versatile packaging machine designed for stickpack applications.';
+    case 'Maxima 200':
+      return 'Maxima 200 is a flexible machine for packaging applications across industries.';
+  // Add cases for other subcategories
+    default:
+      return 'This is a versatile and efficient machine used for a wide variety of packaging applications.';
   }
 }
