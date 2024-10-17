@@ -4,10 +4,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nichrome/screens/profile.dart';
 import 'package:nichrome/screens/scan.dart';
+import '../cards/cards.dart';
 import '../pages/dh_wing_servo.dart';
 import '../pages/machine_category_page.dart';
 import 'categories.dart';
 import '../pages/rivision.dart';
+import 'package:nichrome/Authenticate/LoginScreen.dart';
 
 
 
@@ -23,7 +25,7 @@ class BottomNavigation extends StatefulWidget {
 class _BottomNavigationState extends State<BottomNavigation> {
   int pageindex = 0;
   bool _isPopupShown = false;
-  final pages = [home(), category(), scan(), dh_wing_servo()];
+  final pages = [home(), category(), VisitingCardsPage(), LoginScreen()];
   var _appPageController = PageController();
 
   setBottomBarIndex(index) {
