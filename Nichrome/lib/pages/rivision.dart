@@ -3,6 +3,8 @@ import 'package:nichrome/screens/categories.dart';
 import '../common/clip.dart';
 import '../common/search.dart';
 import '../common/slider_screen.dart';
+import '../screens/subcategoriesdetails.dart';
+import 'machine_category_page.dart';
 
 class home extends StatefulWidget {
   const home({Key? key}) : super(key: key);
@@ -26,10 +28,10 @@ class _homeState extends State<home> {
         title: Row(
           children: [
             Container(
-                height: 250,
-                width: 200,
-                child: Image.asset("assets/logo/logo.png"),
-              ),
+              height: 250,
+              width: 200,
+              child: Image.asset("assets/logo/logo.png"),
+            ),
 
           ],
         ),
@@ -109,7 +111,13 @@ class _homeState extends State<home> {
                             Column(
                               children: [
                                 GestureDetector(
-                                  onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => category()));},
+                                onTap: () {Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                      builder: (context) => MachineCategoryPage(industry: 'Grains'),
+                                      ),
+                                      );
+                                    },
                                   child: Container(
                                     height: 200,width: 150,
                                     decoration: BoxDecoration(

@@ -2,12 +2,13 @@
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:nichrome/screens/categories.dart';
 import 'package:nichrome/screens/profile.dart';
 import 'package:nichrome/screens/scan.dart';
-import 'package:nichrome/screens/home.dart';
-
 import '../pages/dh_wing_servo.dart';
+import '../pages/machine_category_page.dart';
+import 'categories.dart';
+import '../pages/rivision.dart';
+
 
 
 
