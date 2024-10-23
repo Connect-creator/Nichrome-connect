@@ -3,13 +3,12 @@ import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nichrome/screens/profile.dart';
-import 'package:nichrome/screens/scan.dart';
 import '../cards/cards.dart';
-import '../pages/dh_wing_servo.dart';
-import '../pages/machine_category_page.dart';
+import '../pages/categories2.dart';
 import 'categories.dart';
 import '../pages/rivision.dart';
 import 'package:nichrome/Authenticate/LoginScreen.dart';
+
 
 
 

@@ -3,7 +3,9 @@ import 'package:nichrome/screens/categories.dart';
 import '../common/clip.dart';
 import '../common/search.dart';
 import '../common/slider_screen.dart';
-import '../screens/subcategoriesdetails.dart';
+import '../common/Sidebar.dart';
+import '../pharma/capsule.dart';
+import '../pharma/tablets.dart';
 import 'machine_category_page.dart';
 
 class home extends StatefulWidget {
@@ -23,6 +25,7 @@ class _homeState extends State<home> {
         .size
         .width;
     return Scaffold(
+      drawer: Sidebar(),
       appBar: AppBar(
         backgroundColor: Color(0xFFFFF3E0),
         title: Row(
@@ -111,13 +114,13 @@ class _homeState extends State<home> {
                             Column(
                               children: [
                                 GestureDetector(
-                                onTap: () {Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
+                                  onTap: () {Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
                                       builder: (context) => MachineCategoryPage(industry: 'Grains'),
-                                      ),
-                                      );
-                                    },
+                                    ),
+                                  );
+                                  },
                                   child: Container(
                                     height: 200,width: 150,
                                     decoration: BoxDecoration(
@@ -126,13 +129,20 @@ class _homeState extends State<home> {
                                     child: ClipRRect(borderRadius: BorderRadius.circular(20),child: Image(image: AssetImage('assets/food/Grains.jpg'), fit: BoxFit.cover,)),
                                   ),
                                 ),
-                                Text("Grains")
+                                SizedBox(height: 5,),
+                                Text("Grains",style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),)
+
                               ],
                             ),
                             Column(
                               children: [
                                 GestureDetector(
-                                  onTap: (){},
+                                  onTap: (){Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => MachineCategoryPage(industry: 'Milk'),
+                                    ),
+                                  );},
                                   child: Container(
                                     height: 200,width: 150,
                                     decoration: BoxDecoration(
@@ -141,7 +151,60 @@ class _homeState extends State<home> {
                                     child: ClipRRect(borderRadius: BorderRadius.circular(20),child: Image(image: AssetImage('assets/food/Milk.jpg'), fit: BoxFit.cover,)),
                                   ),
                                 ),
-                                Text("Milk")
+                                SizedBox(height: 5,),
+                                Text("Milk",style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),)
+                              ],
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 20,),
+
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Column(
+                              children: [
+                                GestureDetector(
+                                  onTap: () {Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => MachineCategoryPage(industry: 'Sugar'),
+                                    ),
+                                  );
+                                  },
+                                  child: Container(
+                                    height: 200,width: 150,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20)
+                                    ),
+                                    child: ClipRRect(borderRadius: BorderRadius.circular(20),child: Image(image: AssetImage('assets/food/Sugar.jpg'), fit: BoxFit.cover,)),
+                                  ),
+                                ),
+                                SizedBox(height: 5,),
+                                Text("Sugar",style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),)
+
+                              ],
+                            ),
+                            Column(
+                              children: [
+                                GestureDetector(
+                                  onTap: (){Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => MachineCategoryPage(industry: 'Tea'),
+                                    ),
+                                  );},
+                                  child: Container(
+                                    height: 200,width: 150,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20)
+                                    ),
+                                    child: ClipRRect(borderRadius: BorderRadius.circular(20),child: Image(image: AssetImage('assets/food/tea.jpg'), fit: BoxFit.cover,)),
+                                  ),
+                                ),
+                                SizedBox(height: 5,),
+                                Text("Tea and Coffee",style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),)
                               ],
                             ),
 
@@ -155,7 +218,12 @@ class _homeState extends State<home> {
                             Column(
                               children: [
                                 GestureDetector(
-                                  onTap: (){},
+                                  onTap: (){Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => MachineCategoryPage(industry: 'Namkeen'),
+                                    ),
+                                  );},
                                   child: Container(
                                     height: 200,width: 150,
                                     decoration: BoxDecoration(
@@ -164,13 +232,19 @@ class _homeState extends State<home> {
                                     child: ClipRRect(borderRadius: BorderRadius.circular(20),child: Image(image: AssetImage('assets/food/Namkeen.jpg'), fit: BoxFit.cover,)),
                                   ),
                                 ),
-                                Text("Namkeen")
+                                SizedBox(height: 5,),
+                                Text("Namkeen",style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),)
                               ],
                             ),
                             Column(
                               children: [
                                 GestureDetector(
-                                  onTap: (){},
+                                  onTap: (){Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => MachineCategoryPage(industry: 'Oil'),
+                                    ),
+                                  );},
                                   child: Container(
                                     height: 200,width: 150,
                                     decoration: BoxDecoration(
@@ -179,7 +253,8 @@ class _homeState extends State<home> {
                                     child: ClipRRect(borderRadius: BorderRadius.circular(20),child: Image(image: AssetImage('assets/food/Oil.jpg'), fit: BoxFit.cover,)),
                                   ),
                                 ),
-                                Text("Oil")
+                                SizedBox(height: 5,),
+                                Text("Oil",style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),)
                               ],
                             ),
 
@@ -193,7 +268,12 @@ class _homeState extends State<home> {
                             Column(
                               children: [
                                 GestureDetector(
-                                  onTap: (){},
+                                  onTap: (){Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => MachineCategoryPage(industry: 'Powders'),
+                                    ),
+                                  );},
                                   child: Container(
                                     height: 200,width: 150,
                                     decoration: BoxDecoration(
@@ -202,13 +282,19 @@ class _homeState extends State<home> {
                                     child: ClipRRect(borderRadius: BorderRadius.circular(20),child: Image(image: AssetImage('assets/food/Powders.jpg'), fit: BoxFit.cover,)),
                                   ),
                                 ),
-                                Text("Powders")
+                                SizedBox(height: 5,),
+                                Text("Powders",style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),)
                               ],
                             ),
                             Column(
                               children: [
                                 GestureDetector(
-                                  onTap: (){},
+                                  onTap: (){Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => MachineCategoryPage(industry: 'Ready to eat'),
+                                    ),
+                                  );},
                                   child: Container(
                                     height: 200,width: 150,
                                     decoration: BoxDecoration(
@@ -217,7 +303,8 @@ class _homeState extends State<home> {
                                     child: ClipRRect(borderRadius: BorderRadius.circular(20),child: Image(image: AssetImage('assets/food/Ready_to_eat.jpg'), fit: BoxFit.cover,)),
                                   ),
                                 ),
-                                Text("Ready to Eat")
+                                SizedBox(height: 5,),
+                                Text("Ready to eat",style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),)
                               ],
                             ),
 
@@ -240,7 +327,12 @@ class _homeState extends State<home> {
                             Column(
                               children: [
                                 GestureDetector(
-                                  onTap: (){},
+                                  onTap: (){Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => MachineCategoryPage(industry: 'Capsules'),
+                                    ),
+                                  );},
                                   child: Container(
                                     height: 200,width: 150,
                                     decoration: BoxDecoration(
@@ -249,13 +341,19 @@ class _homeState extends State<home> {
                                     child: ClipRRect(borderRadius: BorderRadius.circular(20),child: Image(image: AssetImage('assets/pharma/capsules.jpg'), fit: BoxFit.cover,)),
                                   ),
                                 ),
-                                Text("Capsules")
+                                SizedBox(height: 5,),
+                                Text("Capsules",style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),)
                               ],
                             ),
                             Column(
                               children: [
                                 GestureDetector(
-                                  onTap: (){},
+                                  onTap: (){Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => MachineCategoryPage(industry: 'Gel'),
+                                    ),
+                                  );},
                                   child: Container(
                                     height: 200,width: 150,
                                     decoration: BoxDecoration(
@@ -264,7 +362,8 @@ class _homeState extends State<home> {
                                     child: ClipRRect(borderRadius: BorderRadius.circular(20),child: Image(image: AssetImage('assets/pharma/Gel.jpg'), fit: BoxFit.cover,)),
                                   ),
                                 ),
-                                Text("Gel")
+                                SizedBox(height: 5,),
+                                Text("Gel",style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),)
                               ],
                             ),
 
@@ -278,7 +377,12 @@ class _homeState extends State<home> {
                             Column(
                               children: [
                                 GestureDetector(
-                                  onTap: (){},
+                                  onTap: (){Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => MachineCategoryPage(industry: 'Granulation'),
+                                    ),
+                                  );},
                                   child: Container(
                                     height: 200,width: 150,
                                     decoration: BoxDecoration(
@@ -287,13 +391,19 @@ class _homeState extends State<home> {
                                     child: ClipRRect(borderRadius: BorderRadius.circular(20),child: Image(image: AssetImage('assets/pharma/granules.jpg'), fit: BoxFit.cover,)),
                                   ),
                                 ),
-                                Text("Granules")
+                                SizedBox(height: 5,),
+                                Text("Granulation",style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),)
                               ],
                             ),
                             Column(
                               children: [
                                 GestureDetector(
-                                  onTap: (){},
+                                  onTap: (){Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => MachineCategoryPage(industry: 'Injectibles'),
+                                    ),
+                                  );},
                                   child: Container(
                                     height: 200,width: 150,
                                     decoration: BoxDecoration(
@@ -302,7 +412,8 @@ class _homeState extends State<home> {
                                     child: ClipRRect(borderRadius: BorderRadius.circular(20),child: Image(image: AssetImage('assets/pharma/Injectibles.jpg'), fit: BoxFit.cover,)),
                                   ),
                                 ),
-                                Text("Injectibles")
+                                SizedBox(height: 5,),
+                                Text("Injectibles",style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),)
                               ],
                             ),
 
@@ -316,7 +427,12 @@ class _homeState extends State<home> {
                             Column(
                               children: [
                                 GestureDetector(
-                                  onTap: (){},
+                                  onTap: (){Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => tablets(),
+                                    ),
+                                  );},
                                   child: Container(
                                     height: 200,width: 150,
                                     decoration: BoxDecoration(
@@ -325,13 +441,19 @@ class _homeState extends State<home> {
                                     child: ClipRRect(borderRadius: BorderRadius.circular(20),child: Image(image: AssetImage('assets/pharma/tablets.jpg'), fit: BoxFit.cover,)),
                                   ),
                                 ),
-                                Text("Tablets")
+                                SizedBox(height: 5,),
+                                Text("Tablets",style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),)
                               ],
                             ),
                             Column(
                               children: [
                                 GestureDetector(
-                                  onTap: (){},
+                                  onTap: (){Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => MachineCategoryPage(industry: 'Oral Liquid'),
+                                    ),
+                                  );},
                                   child: Container(
                                     height: 200,width: 150,
                                     decoration: BoxDecoration(
@@ -340,7 +462,8 @@ class _homeState extends State<home> {
                                     child: ClipRRect(borderRadius: BorderRadius.circular(20),child: Image(image: AssetImage('assets/pharma/oral-liquid.jpg'), fit: BoxFit.cover,)),
                                   ),
                                 ),
-                                Text("Oral Liquid")
+                                SizedBox(height: 5,),
+                                Text("Oral Liquid",style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),)
                               ],
                             ),
 
@@ -363,7 +486,12 @@ class _homeState extends State<home> {
                             Column(
                               children: [
                                 GestureDetector(
-                                  onTap: (){},
+                                  onTap: (){Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => MachineCategoryPage(industry: 'Adhesives'),
+                                    ),
+                                  );},
                                   child: Container(
                                     height: 200,width: 150,
                                     decoration: BoxDecoration(
@@ -372,13 +500,19 @@ class _homeState extends State<home> {
                                     child: ClipRRect(borderRadius: BorderRadius.circular(20),child: Image(image: AssetImage('assets/non_food/Adhesives.jpg'), fit: BoxFit.cover,)),
                                   ),
                                 ),
-                                Text("Adhesives")
+                                SizedBox(height: 5,),
+                                Text("Adhesives",style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),)
                               ],
                             ),
                             Column(
                               children: [
                                 GestureDetector(
-                                  onTap: (){},
+                                  onTap: (){Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => MachineCategoryPage(industry: 'Fertilizers'),
+                                    ),
+                                  );},
                                   child: Container(
                                     height: 200,width: 150,
                                     decoration: BoxDecoration(
@@ -387,7 +521,8 @@ class _homeState extends State<home> {
                                     child: ClipRRect(borderRadius: BorderRadius.circular(20),child: Image(image: AssetImage('assets/non_food/Fertilizer.jpg'), fit: BoxFit.cover,)),
                                   ),
                                 ),
-                                Text("Fertilizers")
+                                SizedBox(height: 5,),
+                                Text("Fertilizers",style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),)
                               ],
                             ),
 
@@ -401,7 +536,12 @@ class _homeState extends State<home> {
                             Column(
                               children: [
                                 GestureDetector(
-                                  onTap: (){},
+                                  onTap: (){Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => MachineCategoryPage(industry: 'Agrochemicals'),
+                                    ),
+                                  );},
                                   child: Container(
                                     height: 200,width: 150,
                                     decoration: BoxDecoration(
@@ -410,13 +550,19 @@ class _homeState extends State<home> {
                                     child: ClipRRect(borderRadius: BorderRadius.circular(20),child: Image(image: AssetImage('assets/non_food/Agrochemicals.jpg'), fit: BoxFit.cover,)),
                                   ),
                                 ),
-                                Text("Agrochemical")
+                                SizedBox(height: 5,),
+                                Text("Agrochemicals",style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),)
                               ],
                             ),
                             Column(
                               children: [
                                 GestureDetector(
-                                  onTap: (){},
+                                  onTap: (){Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => MachineCategoryPage(industry: 'Hardware'),
+                                    ),
+                                  );},
                                   child: Container(
                                     height: 200,width: 150,
                                     decoration: BoxDecoration(
@@ -425,7 +571,8 @@ class _homeState extends State<home> {
                                     child: ClipRRect(borderRadius: BorderRadius.circular(20),child: Image(image: AssetImage('assets/non_food/Hardware.jpg'), fit: BoxFit.cover,)),
                                   ),
                                 ),
-                                Text("Hardware")
+                                SizedBox(height: 5,),
+                                Text("Hardware",style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),)
                               ],
                             ),
 
@@ -439,7 +586,12 @@ class _homeState extends State<home> {
                             Column(
                               children: [
                                 GestureDetector(
-                                  onTap: (){},
+                                  onTap: (){Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => MachineCategoryPage(industry: 'Lube Oil'),
+                                    ),
+                                  );},
                                   child: Container(
                                     height: 200,width: 150,
                                     decoration: BoxDecoration(
@@ -448,13 +600,19 @@ class _homeState extends State<home> {
                                     child: ClipRRect(borderRadius: BorderRadius.circular(20),child: Image(image: AssetImage('assets/non_food/Lube-oil.jpg'), fit: BoxFit.cover,)),
                                   ),
                                 ),
-                                Text("Lube Oil")
+                                SizedBox(height: 5,),
+                                Text("Lube Oil",style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),)
                               ],
                             ),
                             Column(
                               children: [
                                 GestureDetector(
-                                  onTap: (){},
+                                  onTap: (){Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => MachineCategoryPage(industry: 'Paint Powders'),
+                                    ),
+                                  );},
                                   child: Container(
                                     height: 200,width: 150,
                                     decoration: BoxDecoration(
@@ -463,7 +621,8 @@ class _homeState extends State<home> {
                                     child: ClipRRect(borderRadius: BorderRadius.circular(20),child: Image(image: AssetImage('assets/non_food/Paint-powder.jpg'), fit: BoxFit.cover,)),
                                   ),
                                 ),
-                                Text("Paint Powders")
+                                SizedBox(height: 5,),
+                                Text("Paint Powders",style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),)
                               ],
                             ),
 

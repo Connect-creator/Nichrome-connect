@@ -67,7 +67,7 @@ class _SignupScreeenState extends State<SignupScreeen> {
                       label: Text(
                         'Full Name',
                         style:
-                        TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                        TextStyle(fontSize: 15),
                       ),
                       prefixIcon: Icon(Icons.person_outline_rounded),
                       border: OutlineInputBorder(),
@@ -87,9 +87,9 @@ class _SignupScreeenState extends State<SignupScreeen> {
                   TextFormField(
                     decoration: InputDecoration(
                       label: Text(
-                        'E-Mail',
+                        'Email',
                         style:
-                        TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                        TextStyle(fontSize: 15),
                       ),
                       prefixIcon: Icon(Icons.email_outlined),
                       border: OutlineInputBorder(),
@@ -133,7 +133,7 @@ class _SignupScreeenState extends State<SignupScreeen> {
                       label: Text(
                         'Password',
                         style:
-                        TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                        TextStyle(fontSize: 15,),
                       ),
                       prefixIcon: Icon(Icons.password_outlined),
                       border: OutlineInputBorder(),

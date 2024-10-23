@@ -22,7 +22,7 @@ class _VisitingCardsPageState extends State<VisitingCardsPage> {
   // Function to check if the logged-in user is admin
   void _checkIfAdmin() {
     User? user = FirebaseAuth.instance.currentUser;
-    if (user != null && user.email == 'a@gmail.com') {
+    if (user != null && user.email == 'maheshshriram9090@gmail.com') {
       // User with this email is an admin
       setState(() {
         isAdmin = true;

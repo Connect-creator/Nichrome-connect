@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 
 class VisitingCardForm extends StatefulWidget {
   @override
@@ -13,11 +14,25 @@ class _VisitingCardFormState extends State<VisitingCardForm> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _mobileController = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
-  String name = "";
-
-
+  String  name = "";
   final _formKey = GlobalKey<FormState>();
   bool _isLoading = false;
+
+
+  void initState() {
+    // TODO: implement initState
+    getdata();
+    super.initState();
+  }
+
+  getdata()async{
+    DocumentSnapshot snap = await FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid).get();
+    setState(() {
+      name = (snap.data() as Map<String, dynamic>)['Name'];
+    });
+
+  }
+
 
   // Function to add card details to Firebase Firestore
   Future<void> _addVisitingCard() async {
@@ -36,18 +51,8 @@ class _VisitingCardFormState extends State<VisitingCardForm> {
         String uid = user.uid;
         String scannerName = user.displayName ?? "Anonymous"; // Name from Firebase Auth
 
-        getdata()async{
-          DocumentSnapshot snap = await FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid).get();
-          setState(() {
-            name = (snap.data() as Map<String, dynamic>)['Name'];
-          });
 
-        }
-        void initState() {
-          // TODO: implement initState
-          getdata();
-          super.initState();
-        }
+
 
         // Add card details to Firestore
         await FirebaseFirestore.instance.collection('visiting_cards').add({
@@ -112,12 +117,10 @@ class _VisitingCardFormState extends State<VisitingCardForm> {
                 controller: _emailController,
                 decoration: InputDecoration(labelText: "Email"),
                 keyboardType: TextInputType.emailAddress,
-                validator: (value) {
-                  if (value == null || value.isEmpty || !value.contains('@')) {
-                    return "Please enter a valid email";
-                  }
-                  return null;
-                },
+                  validator: MultiValidator([
+                    RequiredValidator(errorText: "This field is required"),
+                    EmailValidator(errorText: "Invalid")
+                  ])
               ),
               TextFormField(
                 controller: _mobileController,
@@ -126,6 +129,8 @@ class _VisitingCardFormState extends State<VisitingCardForm> {
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return "Please enter a mobile number";
+                  } else if (value.length != 10) {
+                    return "Mobile number must be exactly 10 digits";
                   }
                   return null;
                 },
